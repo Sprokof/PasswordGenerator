@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class GeneratorServlet extends HttpServlet {
+    private static final String GENERATOR_PATH_PAGE = "/WEB-INF/jsp/generator.jsp", RESULT_PATH_PAGE = "/WEB-INF/jsp/result.jsp";
+
     private PasswordGenerator generator;
 
     @Override
@@ -21,7 +23,7 @@ public class GeneratorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String len = req.getParameter("length");
-        String path = "/WEB-INF/jsp/generator.jsp";
+        String path = GENERATOR_PATH_PAGE;
         if(len != null){
 
             int length = Integer.parseInt(len);
@@ -37,7 +39,7 @@ public class GeneratorServlet extends HttpServlet {
                     .generate(length);
             req.setAttribute("generated", generated);
 
-            path = "/WEB-INF/jsp/result.jsp";
+            path = RESULT_PATH_PAGE;
         }
         req.getRequestDispatcher(path).forward(req, resp);
     }
